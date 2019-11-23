@@ -13,13 +13,13 @@ class record(models.Model):
         (BLOCKED, 'Blocked'),
         (CLOSED, 'Closed'),
     ]
-    ID = models.AutoField(primary_key=True),
-    projectId = models.ForeignKey('project', on_delete=models.CASCADE),
-    title = models.TextField(max_length=32),
-    description = models.TextField(max_length=256),
-    owner = models.EmailField(max_length=254),
-    dateCreated = models.DateTimeField(),
-    dateModified = models.DateTimeField(),
+    recordID = models.AutoField(primary_key=True)
+    projectId = models.ForeignKey('project', on_delete=models.CASCADE)
+    title = models.CharField(max_length=32, blank=True, null=True)
+    description = models.CharField(max_length=256, blank=True, null=True)
+    ownerEmail = models.EmailField(max_length=254)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateModified = models.DateTimeField(auto_now=True)
     comments = models.ForeignKey('recordComment', on_delete=models.CASCADE)
     status = models.CharField(
         max_length=2,
@@ -41,21 +41,22 @@ class record(models.Model):
 
 
 class project(models.Model):
-    ID = models.AutoField(primary_key=True),
-    name = models.TextField(max_length=32),
-    owner = models.EmailField(max_length=254)
+    projectID = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=32, blank=True, null=True)
+    description = models.CharField(max_length=256, blank=True, null=True)
+    ownerEmail = models.EmailField(max_length=254)
 
     def __str__(self):
         return self.name
 
 
 class recordComment(models.Model):
-    ID = models.AutoField(primary_key=True),
-    title = models.TextField(max_length=32),
-    content = models.TextField(max_length=256),
-    owner = models.EmailField(max_length=254),
-    dateCreated = models.DateTimeField(),
-    dateModified = models.DateTimeField()
+    commentID = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=32, blank=True, null=True)
+    content = models.CharField(max_length=256, blank=True, null=True)
+    ownerEmail = models.EmailField(max_length=254)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateModified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title

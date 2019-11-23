@@ -20,10 +20,12 @@ from .views import (
     about_page,
     contact_page,
 )
+from tracker.views import projectCreate_view
 
 
 urlpatterns = [
     path('', home_page),
+    path('create', projectCreate_view),
     path('about', about_page),
     path('contact', contact_page),
     path('admin/', admin.site.urls),
