@@ -19,8 +19,9 @@ from .views import (
     home_page,
     about_page,
     contact_page,
+    projectCreate_view
 )
-from tracker.views import projectCreate_view
+#from tracker.views import projectCreate_view
 
 
 urlpatterns = [
