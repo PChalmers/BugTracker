@@ -6,8 +6,8 @@ def projectCreate_view(request):
     form = projectForm(request.POST or None)
     if form.is_valid():
         print(form.cleaned_data)
-    template_name = 'form.html'
+    template_name = "form.html"
     context = {
         'form': form
     }
-    return render(request, template_name, context)
+    return render(request, "form.html", context)
