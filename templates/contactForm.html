@@ -9,7 +9,7 @@ Contact page
     {% if title %}
         <h1>{{  title  }}</h1>
     {%  endif %}
-    <form method='POST' action='/contact'> {%  csrf_token %}
+    <form method='POST' action='/create'> {%  csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
