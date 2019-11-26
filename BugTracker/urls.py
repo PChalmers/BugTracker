@@ -15,20 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import (
-    home_page,
-    about_page,
-    contact_page,
-    projectCreate_view
-)
+from . import views
 #from tracker.views import projectCreate_view
 
 
 urlpatterns = [
-    path('', home_page),
-    path('create', projectCreate_view),
-    path('about', about_page),
-    path('contact', contact_page),
+    path('', views.home_page),
+    path('create', views.projectCreate_view),
+    path('about', views.about_page),
+    path('contact', views.contact_page),
     path('admin/', admin.site.urls),
 
 ]
+
+
+
+
+
+
+
+

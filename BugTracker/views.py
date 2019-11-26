@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .form import ContactForm
 from tracker.views import projectForm
 
+
 def home_page(request):
     return render(request, "main.html")
 
@@ -32,3 +33,8 @@ def projectCreate_view(request):
         'form': form
     }
     return render(request, template_name, context)
+
+
+
+
+

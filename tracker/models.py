@@ -2,6 +2,30 @@ from django.db import models
 
 
 # Create your models here.
+class user(models.Model):
+    ADMIN = 'AD'
+    LEVEL1 = 'L1'
+    LEVEL2 = 'L2'
+    LEVEL3 = 'L3'
+    USER_PRIORITY_CHOICES = [
+        (ADMIN, 'Admin'),
+        (LEVEL1, 'Opened'),
+        (LEVEL2, 'Blocked'),
+        (LEVEL3, 'Closed'),
+    ]
+    userID = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=32, blank=True, null=True)
+    description = models.CharField(max_length=256, blank=True, null=True)
+    email = models.EmailField(max_length=254)
+    dateCreated = models.DateTimeField(auto_now_add=True)
+    dateModified = models.DateTimeField(auto_now=True)
+    priority = models.CharField(
+        max_length=2,
+        choices=USER_PRIORITY_CHOICES,
+        default=LEVEL1,
+    )
+
+
 class record(models.Model):
     INIT = 'IN'
     OPEN = 'OP'

@@ -15,3 +15,9 @@ class commentForm(forms.Form):
     Title = forms.CharField()
     Comment = forms.CharField(widget=forms.Textarea)
     Email = forms.EmailField()
+
+
+
+
+
+
