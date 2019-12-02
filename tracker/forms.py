@@ -2,6 +2,7 @@ from django import forms
 
 from .models import project, account, record, recordComment
 
+
 class projectForm(forms.Form):
     name = forms.CharField()
     description = forms.CharField(widget=forms.Textarea())

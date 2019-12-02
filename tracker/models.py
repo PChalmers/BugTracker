@@ -74,7 +74,7 @@ class record(models.Model):
     assigned = models.ForeignKey('account', related_name='assigned', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
-    comments = models.ForeignKey('recordComment', on_delete=models.CASCADE)
+    comments = models.ForeignKey('recordComment', null=True, =models.CASCADE)
 
 
     def is_opened(self):

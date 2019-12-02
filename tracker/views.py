@@ -1,6 +1,8 @@
 from django.shortcuts import render
+
 from .forms import projectForm
 from .models import project
+
 
 # Create your views here.
 def projectCreate_view(request):

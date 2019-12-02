@@ -1,5 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+
 from tracker.forms import projectModelForm, accountModelForm, recordModelForm, commentModelForm
 from .form import ContactForm
 
@@ -30,7 +30,7 @@ def accountCreate_view(request):
         print(form.cleaned_data)
         form.save()
         form = projectModelForm()
-    template_name = 'forms.html'
+    template_name = 'createAccount_Form.html'
     context = {
         "title": "Account create form",
         "action": "/createAccount",
@@ -46,7 +46,7 @@ def projectCreate_view(request):
         print(form.cleaned_data)
         form.save()
         form = projectModelForm()
-    template_name = 'forms.html'
+    template_name = 'createProject_Form.html'
     context = {
         "title": "Project create form",
         "action": "/createProject",
@@ -61,7 +61,7 @@ def commentCreate_view(request):
         print(form.cleaned_data)
         form.save()
         form = projectModelForm()
-    template_name = 'forms.html'
+    template_name = 'createComment_Form.html'
     context = {
         "title": "Comment create form",
         "action": "/createComment",
@@ -77,7 +77,7 @@ def recordCreate_view(request):
         print(form.cleaned_data)
         form.save()
         form = projectModelForm()
-    template_name = 'forms.html'
+    template_name = 'createRecord_Form.html'
     context = {
         "title": "Record create form",
         "action": "/createRecord",
