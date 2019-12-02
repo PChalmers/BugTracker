@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from tracker.forms import projectModelForm, accountModelForm, recordModelForm, commentModelForm
 from .form import ContactForm
-from tracker.views import projectForm
 
 
 def home_page(request):
@@ -24,17 +24,64 @@ def contact_page(request):
 
 
 # Create your views here.
-def projectCreate_view(request):
-    form = projectForm(request.POST or None)
+def accountCreate_view(request):
+    form = accountModelForm(request.POST or None)
     if form.is_valid():
         print(form.cleaned_data)
+        form.save()
+        form = projectModelForm()
     template_name = 'forms.html'
     context = {
+        "title": "Account create form",
+        "action": "/createAccount",
         'form': form
     }
     return render(request, template_name, context)
 
 
+# Create your views here.
+def projectCreate_view(request):
+    form = projectModelForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+        form = projectModelForm()
+    template_name = 'forms.html'
+    context = {
+        "title": "Project create form",
+        "action": "/createProject",
+        'form': form
+    }
+    return render(request, template_name, context)
+
+# Create your views here.
+def commentCreate_view(request):
+    form = commentModelForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+        form = projectModelForm()
+    template_name = 'forms.html'
+    context = {
+        "title": "Comment create form",
+        "action": "/createComment",
+        'form': form
+    }
+    return render(request, template_name, context)
 
 
+# Create your views here.
+def recordCreate_view(request):
+    form = recordModelForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form.save()
+        form = projectModelForm()
+    template_name = 'forms.html'
+    context = {
+        "title": "Record create form",
+        "action": "/createRecord",
+        'form': form
+    }
+    return render(request, template_name, context)
 

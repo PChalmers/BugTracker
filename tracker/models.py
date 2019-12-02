@@ -69,7 +69,7 @@ class record(models.Model):
         default=INIT,
     )
     title = models.CharField(max_length=32, blank=True, null=True)
-    description = models.CharField(max_length=256, blank=True, null=True)
+    description = models.TextField(max_length=256, blank=True, null=True)
     originator = models.ForeignKey('account', related_name='originator', on_delete=models.DO_NOTHING)
     assigned = models.ForeignKey('account', related_name='assigned', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
@@ -93,7 +93,7 @@ class record(models.Model):
 class project(models.Model):
     projectID = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64)
-    description = models.CharField(max_length=256, blank=True, null=True)
+    description = models.TextField(max_length=256, blank=True, null=True)
     owner = models.ForeignKey('account', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
@@ -105,7 +105,7 @@ class project(models.Model):
 class recordComment(models.Model):
     commentID = models.AutoField(primary_key=True)
     title = models.CharField(max_length=32, blank=True, null=True)
-    content = models.CharField(max_length=256, blank=True, null=True)
+    content = models.TextField(max_length=256, blank=True, null=True)
     owner = models.ForeignKey('account', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
