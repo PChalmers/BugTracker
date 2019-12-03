@@ -29,7 +29,7 @@ def accountCreate_view(request):
     if form.is_valid():
         print(form.cleaned_data)
         form.save()
-        form = projectModelForm()
+        form = accountModelForm()
     template_name = 'createAccount_Form.html'
     context = {
         "title": "Account create form",
@@ -37,7 +37,6 @@ def accountCreate_view(request):
         'form': form
     }
     return render(request, template_name, context)
-
 
 # Create your views here.
 def projectCreate_view(request):
@@ -60,7 +59,7 @@ def commentCreate_view(request):
     if form.is_valid():
         print(form.cleaned_data)
         form.save()
-        form = projectModelForm()
+        form = commentModelForm()
     template_name = 'createComment_Form.html'
     context = {
         "title": "Comment create form",
@@ -76,7 +75,7 @@ def recordCreate_view(request):
     if form.is_valid():
         print(form.cleaned_data)
         form.save()
-        form = projectModelForm()
+        form = recordModelForm()
     template_name = 'createRecord_Form.html'
     context = {
         "title": "Record create form",

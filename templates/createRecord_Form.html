@@ -8,7 +8,33 @@
     {%  endif %}
 
     <form method="post" action={{ action }} > {% csrf_token %}
-        {{ form|crispy }}
+        <div class="row">
+          <div class="col-4">
+            {{ form.projectId|as_crispy_field }}
+          </div>
+          <div class="col-4">
+            {{ form.type|as_crispy_field }}
+          </div>
+          <div class="col-4">
+            {{ form.status|as_crispy_field }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            {{ form.title|as_crispy_field }}
+          </div>
+          <div class="col-6">
+            {{ form.description|as_crispy_field }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            {{ form.originator|as_crispy_field }}
+          </div>
+          <div class="col-6">
+            {{ form.assigned|as_crispy_field }}
+          </div>
+        </div>
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 

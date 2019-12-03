@@ -2,16 +2,10 @@ from django import forms
 
 from .models import project, account, record, recordComment
 
-
-class projectForm(forms.Form):
-    name = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea())
-    Email = forms.EmailField()
-
 class accountModelForm(forms.ModelForm):
     class Meta:
         model = account
-        fields = ['name', 'description', 'email', 'priority']
+        fields = ['name', 'description', 'email', 'priority', 'status']
 
 
 class projectModelForm(forms.ModelForm):
@@ -29,5 +23,5 @@ class recordModelForm(forms.ModelForm):
 class commentModelForm(forms.ModelForm):
     class Meta:
         model = recordComment
-        fields = ['title', 'content', 'owner']
+        fields = ['recordID', 'title', 'recordID', 'content', 'owner']
 

@@ -8,7 +8,15 @@
     {%  endif %}
 
     <form method="post" action={{ action }} novalidate> {% csrf_token %}
-        {{ form|crispy }}
+        <div class="row">
+          <div class="col-6">
+            {{ form.name|as_crispy_field }}
+          </div>
+          <div class="col-6">
+            {{ form.owner|as_crispy_field }}
+          </div>
+        </div>
+        {{ form.description|as_crispy_field }}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 

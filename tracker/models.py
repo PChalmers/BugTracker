@@ -6,17 +6,28 @@ class account(models.Model):
     ADMIN = 'AD'
     LEVEL1 = 'L1'
     LEVEL2 = 'L2'
-    LOCKED = 'L3'
+    LEVEL3 = 'L3'
     ACCOUNT_PRIORITY_CHOICES = [
         (ADMIN, 'Admin'),
         (LEVEL1, 'Level1'),
         (LEVEL2, 'Level2'),
+        (LEVEL3, 'Level3'),
+    ]
+    ACTIVE = 'AC'
+    LOCKED = 'LK'
+    ACCOUNT_STATUS_CHOICES = [
+        (ACTIVE, 'Active'),
         (LOCKED, 'Locked'),
     ]
     accountID = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=32, blank=True, null=True)
-    description = models.CharField(max_length=256, blank=True, null=True)
+    name = models.CharField(max_length=32)
+    description = models.TextField(max_length=256)
     email = models.EmailField(max_length=254)
+    status = models.CharField(
+        max_length=2,
+        choices=ACCOUNT_STATUS_CHOICES,
+        default=ACTIVE,
+    )
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
     priority = models.CharField(
@@ -29,7 +40,7 @@ class account(models.Model):
         return self.priority in self.ADMIN
 
     def is_locked(self):
-        return self.priority in self.LOCKED
+        return self.status in self.LOCKED
 
     def __str__(self):
         return self.name
@@ -38,11 +49,13 @@ class account(models.Model):
 class record(models.Model):
     INIT = 'IN'
     OPEN = 'OP'
+    ASSIGNED = 'AS'
     BLOCKED = 'BL'
     CLOSED = 'CL'
     RECORD_STATUS_CHOICES = [
         (INIT, 'Initial'),
         (OPEN, 'Opened'),
+        (ASSIGNED, 'Assigned'),
         (BLOCKED, 'Blocked'),
         (CLOSED, 'Closed'),
     ]
@@ -68,17 +81,19 @@ class record(models.Model):
         choices=RECORD_STATUS_CHOICES,
         default=INIT,
     )
-    title = models.CharField(max_length=32, blank=True, null=True)
-    description = models.TextField(max_length=256, blank=True, null=True)
+    title = models.CharField(max_length=32)
+    description = models.TextField(max_length=256)
     originator = models.ForeignKey('account', related_name='originator', on_delete=models.DO_NOTHING)
-    assigned = models.ForeignKey('account', related_name='assigned', on_delete=models.DO_NOTHING)
+    assigned = models.ForeignKey('account', related_name='assigned', blank=True, null=True, on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
-    comments = models.ForeignKey('recordComment', null=True, =models.CASCADE)
-
+    comments = models.ForeignKey('recordComment', blank=True, null=True, on_delete=models.CASCADE)
 
     def is_opened(self):
         return self.status in self.OPEN
+
+    def is_cassigned(self):
+        return self.status in self.ASSIGNED
 
     def is_closed(self):
         return self.status in self.CLOSED
@@ -93,7 +108,7 @@ class record(models.Model):
 class project(models.Model):
     projectID = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64)
-    description = models.TextField(max_length=256, blank=True, null=True)
+    description = models.TextField(max_length=256)
     owner = models.ForeignKey('account', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
@@ -104,8 +119,9 @@ class project(models.Model):
 
 class recordComment(models.Model):
     commentID = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=32, blank=True, null=True)
-    content = models.TextField(max_length=256, blank=True, null=True)
+    recordID = models.ForeignKey('record', on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=32)
+    content = models.TextField(max_length=256)
     owner = models.ForeignKey('account', on_delete=models.DO_NOTHING)
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
