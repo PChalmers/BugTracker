@@ -5,7 +5,7 @@ from .form import ContactForm
 
 
 def home_page(request):
-    return render(request, "main.html")
+    return render(request, "mainTable.html")
 
 
 def about_page(request):
