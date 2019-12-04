@@ -1,18 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 class account(models.Model):
-    ADMIN = 'AD'
-    LEVEL1 = 'L1'
-    LEVEL2 = 'L2'
-    LEVEL3 = 'L3'
-    ACCOUNT_PRIORITY_CHOICES = [
-        (ADMIN, 'Admin'),
-        (LEVEL1, 'Level1'),
-        (LEVEL2, 'Level2'),
-        (LEVEL3, 'Level3'),
-    ]
     ACTIVE = 'AC'
     LOCKED = 'LK'
     ACCOUNT_STATUS_CHOICES = [
@@ -20,7 +11,8 @@ class account(models.Model):
         (LOCKED, 'Locked'),
     ]
     accountID = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=32)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=64)
     description = models.TextField(max_length=256)
     email = models.EmailField(max_length=254)
     status = models.CharField(
@@ -30,17 +22,15 @@ class account(models.Model):
     )
     dateCreated = models.DateTimeField(auto_now_add=True)
     dateModified = models.DateTimeField(auto_now=True)
-    priority = models.CharField(
-        max_length=2,
-        choices=ACCOUNT_PRIORITY_CHOICES,
-        default=LEVEL1,
-    )
 
     def is_admin(self):
-        return self.priority in self.ADMIN
+        return self.user.is_staff
 
     def is_locked(self):
         return self.status in self.LOCKED
+
+    def get_email(self):
+        return self.user.email
 
     def __str__(self):
         return self.name
@@ -92,7 +82,7 @@ class record(models.Model):
     def is_opened(self):
         return self.status in self.OPEN
 
-    def is_cassigned(self):
+    def is_assigned(self):
         return self.status in self.ASSIGNED
 
     def is_closed(self):

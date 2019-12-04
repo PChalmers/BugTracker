@@ -5,7 +5,7 @@ from .models import project, account, record, recordComment
 class accountModelForm(forms.ModelForm):
     class Meta:
         model = account
-        fields = ['name', 'description', 'email', 'priority', 'status']
+        fields = ['user', 'name', 'description', 'status']
 
 
 class projectModelForm(forms.ModelForm):
