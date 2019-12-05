@@ -1,0 +1,20 @@
+body {
+    background: #5D5C61;
+}
+h1 {
+    color: #B1A296;
+}
+
+button.btn.btn-success {
+  background: #7395AE;
+    color: black;
+    border-color: #7395AE;
+
+}
+
+.row {
+    background: #ADADAD;
+}
+.col {
+    background-: crimson;
+}
