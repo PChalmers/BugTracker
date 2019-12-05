@@ -8,6 +8,7 @@ class accountModelForm(forms.ModelForm):
         fields = ['user', 'name', 'description', 'status']
 
 
+
 class projectModelForm(forms.ModelForm):
     class Meta:
         model = project
