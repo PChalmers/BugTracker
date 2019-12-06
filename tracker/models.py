@@ -11,7 +11,7 @@ class account(models.Model):
         (LOCKED, 'Locked'),
     ]
     accountID = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, default=1, null=True, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=64)
     description = models.TextField(max_length=256)
     email = models.EmailField(max_length=254)

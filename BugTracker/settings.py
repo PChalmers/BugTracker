@@ -133,4 +133,6 @@ CRISPY_CLASS_CONVERTERS = {
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = '/login'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
