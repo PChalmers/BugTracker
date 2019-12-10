@@ -1,0 +1,27 @@
+{
+    "STATES": [
+        "init", "open", "assigned", "blocked", "closed"
+    ],
+    "INPUTS": [
+        "Open", "Assign", "Block", "Reopen", "Close"
+    ],
+    "ACTIONS": [
+        "openRecord", "assignRecord", "blockRecord", "reopenRecord", "closeRecord"
+    ],
+    "TRANSITIONS": [
+        ["init", "Open", "openRecord", "open" ],
+
+        ["open", "Assign", "assignRecord", "assigned" ],
+        ["open", "Block", "blockRecord", "blocked" ],
+        ["open", "Close", "closeRecord", "closed" ],
+
+        ["assigned", "Block", "blockRecord", "blocked" ],
+        ["assigned", "Close", "closeRecord", "closed" ],
+
+        ["blocked", "Reopen", "reopenRecord", "open" ],
+        ["blocked", "Close", "closeRecord", "closed" ],
+
+        ["closed", "Reopen", "reopenRecord", "open" ]
+
+    ]
+}

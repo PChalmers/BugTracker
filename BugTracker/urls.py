@@ -22,6 +22,7 @@ from . import views
 
 
 urlpatterns = [
+    path('login', views.loginToAccount),
     path('', views.home_page),
     path('createAccount', views.accountCreate_view),
     path('createProject', views.projectCreate_view),

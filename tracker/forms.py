@@ -8,6 +8,7 @@ class accountModelForm(forms.ModelForm):
         fields = ['user', 'name', 'description', 'status']
 
 
+
 class projectModelForm(forms.ModelForm):
     class Meta:
         model = project
@@ -25,3 +26,6 @@ class commentModelForm(forms.ModelForm):
         model = recordComment
         fields = ['recordID', 'title', 'recordID', 'content', 'owner']
 
+class loginForm(forms.Form):
+    username = forms.CharField(max_length=64)
+    password = forms.CharField(widget=forms.PasswordInput())
