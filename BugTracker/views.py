@@ -1,6 +1,9 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 
-from tracker.forms import projectModelForm, accountModelForm, recordModelForm, commentModelForm
+from tracker.forms import projectModelForm, accountModelForm, recordModelForm, commentModelForm, loginForm
 from .form import ContactForm
 
 
@@ -28,6 +31,7 @@ def accountCreate_view(request):
     form = accountModelForm(request.POST or None)
     if form.is_valid():
         print(form.cleaned_data)
+
         form.save()
         form = accountModelForm()
     template_name = 'createAccount_Form.html'
@@ -39,6 +43,7 @@ def accountCreate_view(request):
     return render(request, template_name, context)
 
 # Create your views here.
+@staff_member_required
 def projectCreate_view(request):
     form = projectModelForm(request.POST or None)
     if form.is_valid():
@@ -54,6 +59,7 @@ def projectCreate_view(request):
     return render(request, template_name, context)
 
 # Create your views here.
+@login_required
 def commentCreate_view(request):
     form = commentModelForm(request.POST or None)
     if form.is_valid():
@@ -70,6 +76,7 @@ def commentCreate_view(request):
 
 
 # Create your views here.
+@login_required
 def recordCreate_view(request):
     form = recordModelForm(request.POST or None)
     if form.is_valid():
@@ -84,3 +91,26 @@ def recordCreate_view(request):
     }
     return render(request, template_name, context)
 
+
+def loginToAccount(request):
+    form = loginForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            ...
+        else:
+            # Return an 'invalid login' error message.
+            form = loginForm()
+
+    template_name = 'login_Form.html'
+    context = {
+        "title": "Log in to continue",
+        "action": "/login",
+        'form': form
+    }
+    return render(request, template_name, context)
