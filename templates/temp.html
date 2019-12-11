@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
+{% extends "yogicoder/base.html" %}
 
-{% block head_title %} Main Table page {% endblock %}
-
+{% block title %} YogiCoder Courses {% endblock %}
 {% block content %}
 
     <div class="container">
-    <h1>Table goes here</h1>
+    <h1><i class="fas fa-chalkboard-teacher"></i> Yogi Coder Courses </h1>
+    <hr>
+
     <table id="table_id" class="display" border='2' align="center" style="width:100%">
 
-        <caption><i>Records in the table</i></caption>
+        <caption><i>Yogi Coder Class Offerings</i></caption>
 
         <thead>
         <tr>
@@ -42,9 +43,8 @@
             {% endfor %}
         </tbody>
     </table>
-
+    <hr>
 {% endblock %}
-
 {% block js %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css"
@@ -67,6 +67,3 @@
     </script>
     </div>
 {% endblock %}
-
-
-
